@@ -2,6 +2,9 @@ import { useState } from "react";
 import React from "react";  
 import axios from "axios";
 
+
+
+
 function Signup() {  
     const [name, setName] = useState()
     const [email, setEmail] = useState()
@@ -10,7 +13,7 @@ function Signup() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post('',{name, email, password})
+        axios.post('http://localhost:3001/register',{name, email, password})
         .then(result => console.log(result))
         .catch(error => console.error(error))
     }
