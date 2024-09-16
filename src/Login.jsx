@@ -1,18 +1,25 @@
 import { useState } from "react";  
 import React from "react";  
 import axios from "axios";
+import {useNavigate,Link} from "react-router-dom"
 
 function Signup() {  
-    const [name, setName] = useState()
+    // const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+    const navigate = useNavigate();  
+
 
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post('',{name, email, password})
-        .then(result => console.log(result))
-        .catch(error => console.error(error))
+        axios.post('http://localhost:3001/login',{ email, password})
+        .then(Result => {
+          // console.log(Result)
+          if(Result.data === "Success"){
+            navigate('/home')
+          }
+        }).catch(error => console.error(error))
     }
 
 
@@ -20,9 +27,9 @@ function Signup() {
   return (  
     <div className="flex items-center justify-center min-h-screen bg-gray-100">  
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">  
-        <h2 className="mb-6 text-2xl font-bold text-center text-gray-700">Register</h2>  
+        <h2 className="mb-6 text-2xl font-bold text-center text-gray-700">Login</h2>  
         <form onSubmit={handleSubmit}>  
-          <div className="mb-4">  
+          {/* <div className="mb-4">  
             <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="username">Username</label>  
             <input  
               type="text"  
@@ -32,8 +39,8 @@ function Signup() {
               required  
               onChange={(e) => setName(e.target.value)}
             />  
-          </div>  
-          <div className="mb-4">  
+          </div>  */}
+              <div className="mb-4">  
             <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="email">Email</label>  
             <input  
               type="email"  
@@ -59,12 +66,12 @@ function Signup() {
             type="submit"  
             className="w-full py-3 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"  
           >  
-            Register  
-          </button>  
+            login  
+          </button>
         </form>  
         <p className="mt-4 text-sm text-center text-gray-600">  
-          Already Have an Account? <a href="#" className="text-blue-500 hover:underline">Login</a>  
-        </p>  
+                    Don't Have an Account? <Link to="/register" className="text-blue-500 hover:underline text-xl font-bold">Register</Link>  
+                </p> 
       </div>  
     </div>  
   );  
